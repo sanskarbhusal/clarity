@@ -1,0 +1,17 @@
+{
+  "name": "clarity-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "echo start"
+  },
+  "author": "Sanskar Bhusal",
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
