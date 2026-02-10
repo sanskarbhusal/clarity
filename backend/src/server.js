@@ -8,6 +8,7 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT
 
+app.set("trust proxy", true)
 // Middlewares
 app.use(cors())
 app.use(express.json())
