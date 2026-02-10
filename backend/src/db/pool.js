@@ -5,7 +5,7 @@ dotenv.config();
 
 let dbConfig
 
-if (process.env.ENVIRONMENT = 'production') {
+if (process.env.ENVIRONMENT == 'production') {
     dbConfig = {
         host: process.env.DB_HOST_PRODUCTION,
         user: process.env.DB_USER_PRODUCTION,
