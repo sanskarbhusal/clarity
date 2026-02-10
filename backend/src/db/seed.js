@@ -1,6 +1,8 @@
 import pool from "./pool.js"
 
 const seedQuery = `
+TRUNCATE accounts cascade;
+
 INSERT INTO
     accounts (email, password_hash)
 VALUES
@@ -76,6 +78,7 @@ VALUES
 
 try {
     await pool.query(seedQuery)
+    console.log("Database seeded")
 } catch (err) {
     console.log(err.message)
 } 

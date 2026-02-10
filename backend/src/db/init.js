@@ -1,6 +1,10 @@
 import pool from "./pool.js"
 
 const initQuery = `
+DROP TABLE IF EXISTS accounts CASCADE;
+
+DROP TABLE IF EXISTS transactions;
+
 CREATE TABLE
     IF NOT EXISTS accounts (
         email VARCHAR(255) PRIMARY KEY,

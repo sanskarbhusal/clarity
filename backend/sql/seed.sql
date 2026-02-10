@@ -1,3 +1,5 @@
+TRUNCATE accounts cascade;
+
 INSERT INTO
     accounts (email, password_hash)
 VALUES
