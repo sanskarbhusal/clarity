@@ -39,7 +39,7 @@ async function editTransaction(req, res) {
             body.id
         ]
 
-        result = await pool.query(sql, values)
+        await pool.query(sql, values)
         res.status(200).send()
     } catch (err) {
         console.log(err.message)

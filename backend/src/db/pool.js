@@ -14,7 +14,8 @@ if (process.env.ENVIRONMENT == 'production') {
         port: process.env.DB_PORT_PRODUCTION,
         ssl: {
             rejectUnauthorized: false
-        }
+        },
+        idleTimeoutMillis: 1000
     }
 } else {
     dbConfig = {
@@ -25,8 +26,8 @@ if (process.env.ENVIRONMENT == 'production') {
         port: process.env.DB_PORT_LOCAL,
         ssl: {
             rejectUnauthorized: false
-        }
-
+        },
+        idleTimeoutMillis: 1000
     }
 }
 

@@ -1,10 +1,10 @@
 import pool from "./pool.js"
 
 const seedQuery = `
-    INSERT INTO
-    accounts (email, password_hash, current_balance)
+INSERT INTO
+    accounts (email, password_hash)
 VALUES
-    ('test@gmail.com', 'password', 0.00);
+    ('test@gmail.com', 'password');
 
 INSERT INTO
     transactions (
@@ -47,6 +47,22 @@ VALUES
         'borrowed',
         'Got lunch money from Nishant',
         '2026-02-18'
+    ),
+    (
+        'test@gmail.com',
+        4000.00,
+        'expense',
+        'clothing',
+        'Bought new pants',
+        '2026-02-19'
+    ),
+    (
+        'test@gmail.com',
+        4000.00,
+        'expense',
+        'clothing',
+        'Bought new pants',
+        '2026-02-19'
     ),
     (
         'test@gmail.com',

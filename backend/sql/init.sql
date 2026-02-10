@@ -1,8 +1,7 @@
 CREATE TABLE
     IF NOT EXISTS accounts (
         email VARCHAR(255) PRIMARY KEY,
-        password_hash TEXT NOT NULL,
-        current_balance NUMERIC(10, 2) NOT NULL
+        password_hash TEXT NOT NULL
     );
 
 CREATE TABLE
