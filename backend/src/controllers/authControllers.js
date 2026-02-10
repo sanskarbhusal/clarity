@@ -29,7 +29,7 @@ async function login(req, res) {
             return
         }
 
-        // successful login with status 200 if none of the premature return condition is met.
+        // successful login with status 200 if none of the premature return condition above is met.
         res.status(200).send("Login sucessfull")
 
     } catch (err) {
@@ -48,7 +48,7 @@ async function signup(req, res) {
         values = [body.email]
         result = await pool.query(sql, values)
 
-        // Premature return with status 422
+        // Premature return with status 422 on unavailable email
         if (result.rows.length != 0) {
             res.status(422).json({
                 message: "Email not available"
@@ -56,7 +56,7 @@ async function signup(req, res) {
             return
         }
 
-        // Store credential
+        // successful sigup with status 200 if none of the premature return condition above is met.
         const hashedPassword = await bcrypt.hash(body.password, 1)
         sql = "INSERT INTO accounts(email, password_hash, current_balance) VALUES($1, $2, $3);"
         values = [body.email, hashedPassword, 0.00]
