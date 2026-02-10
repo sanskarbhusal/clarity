@@ -17,7 +17,7 @@ async function getList(req, res) {
 
 async function editTransaction(req, res) {
     const body = req.body
-    let sql, values, result
+    let sql, values
 
     try {
         sql = `
