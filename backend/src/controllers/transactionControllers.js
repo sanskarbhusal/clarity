@@ -17,7 +17,7 @@ async function getList(req, res) {
 
 async function editTransaction(req, res) {
     const body = req.body
-    let sql, values
+    let sql, values, result
 
     try {
         sql = `
@@ -39,8 +39,36 @@ async function editTransaction(req, res) {
             body.id
         ]
 
-        await pool.query(sql, values)
-        res.status(200).send()
+        result = await pool.query(sql, values)
+
+        if (result.rowCount == 0) {
+            res.status(404).json({ message: `Record with id:${body.id} not found` })
+
+        } else {
+            res.status(200).send()
+        }
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send()
+    }
+}
+
+async function deleteTransaction(req, res) {
+    const transaction_id = req.params.transaction_id
+    let sql, values, result
+
+    try {
+        sql = "DELETE FROM transactions WHERE id=$1;"
+        values = [transaction_id]
+        result = await pool.query(sql, values)
+
+        if (result.rowCount == 0) {
+            res.status(404).json({ message: `Record with id:${transaction_id} not found` })
+
+        } else {
+            res.status(200).send()
+        }
+
     } catch (err) {
         console.log(err.message)
         res.status(500).send()
@@ -49,5 +77,6 @@ async function editTransaction(req, res) {
 
 export default {
     getList,
-    editTransaction
+    editTransaction,
+    deleteTransaction
 }
