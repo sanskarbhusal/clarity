@@ -58,8 +58,8 @@ async function signup(req, res) {
 
         // successful sigup with status 200 if none of the premature return condition above is met.
         const hashedPassword = await bcrypt.hash(body.password, 1)
-        sql = "INSERT INTO accounts(email, password_hash, current_balance) VALUES($1, $2, $3);"
-        values = [body.email, hashedPassword, 0.00]
+        sql = "INSERT INTO accounts(email, password_hash) VALUES($1, $2);"
+        values = [body.email, hashedPassword]
         result = await pool.query(sql, values)
         res.status(200).send("Account created")
 
