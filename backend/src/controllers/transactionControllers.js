@@ -15,6 +15,39 @@ async function getList(req, res) {
     }
 }
 
+async function editTransaction(req, res) {
+    const body = req.body
+    let sql, values, result
+
+    try {
+        sql = `
+        UPDATE transactions
+         SET
+          amount=$1,
+           t_type=$2,
+           category=$3, 
+           t_description=$4, 
+           t_date=$5 
+           WHERE id=$6
+        `
+        values = [
+            body.amount,
+            body.t_type,
+            body.category,
+            body.t_description,
+            body.t_date,
+            body.id
+        ]
+
+        result = await pool.query(sql, values)
+        res.status(200).send()
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send()
+    }
+}
+
 export default {
-    getList
+    getList,
+    editTransaction
 }
