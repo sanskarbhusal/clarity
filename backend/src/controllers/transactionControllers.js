@@ -1,6 +1,8 @@
 import pool from "../db/pool.js"
 
+
 async function getList(req, res) {
+
     const email = req.query.email
     let sql, values, result
     const category = req.query.category
@@ -22,30 +24,15 @@ async function getList(req, res) {
     }
 }
 
+
 async function editTransaction(req, res) {
-    const body = req.body
+
+    const { amount, t_type, category, t_description, t_date, id } = req.body
     let sql, values, result
 
     try {
-        sql = `
-        UPDATE transactions
-         SET
-          amount=$1,
-           t_type=$2,
-           category=$3, 
-           t_description=$4, 
-           t_date=$5 
-           WHERE id=$6
-        `
-        values = [
-            body.amount,
-            body.t_type,
-            body.category,
-            body.t_description,
-            body.t_date,
-            body.id
-        ]
-
+        sql = "UPDATE transactions SET amount = $1, t_type = $2, category = $3, t_description = $4, t_date = $5 WHERE id = $6;"
+        values = [amount, t_type, category, t_description, t_date, id]
         result = await pool.query(sql, values)
 
         if (result.rowCount == 0) {
@@ -58,10 +45,13 @@ async function editTransaction(req, res) {
         console.log(err.message)
         res.status(500).send()
     }
+
 }
 
+
 async function deleteTransaction(req, res) {
-    const transaction_id = req.params.transaction_id
+
+    const { transaction_id } = req.params
     let sql, values, result
 
     try {
@@ -71,7 +61,6 @@ async function deleteTransaction(req, res) {
 
         if (result.rowCount == 0) {
             res.status(404).json({ message: `Record with id:${transaction_id} not found` })
-
         } else {
             res.status(200).send()
         }
@@ -80,22 +69,26 @@ async function deleteTransaction(req, res) {
         console.log(err.message)
         res.status(500).send()
     }
+
 }
 
 async function getOverview(req, res) {
-    const email = req.params.email
+
+    const { email } = req.params
     let sql, values, result
+
     try {
         sql = "SELECT category, SUM(amount) FROM transactions WHERE email=$1 AND t_type='expense' GROUP BY category;"
         values = [email]
         result = await pool.query(sql, values)
-
         res.status(200).json(result.rows)
     } catch (err) {
         console.log(err.message)
         res.status(500).send()
     }
+
 }
+
 
 async function addTransaction(req, res) {
 
@@ -116,6 +109,7 @@ async function addTransaction(req, res) {
     }
 
 }
+
 
 export default {
     getList,
