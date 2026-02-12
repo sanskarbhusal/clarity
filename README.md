@@ -2,27 +2,7 @@
 **Author**: `Sanskar Bhusal` <br>
 **Project**: Clarity
 
-### Screenshots
-**Login Page**
-![](images/login-page.png)
-**Signup Page**
-![](images/signup-page.png)
-**Home Page**
-![](images/home-page.png)
-### Frontend Approach
-1. Single Page application
-2. React + Tyscript
-3. Project structure scafolded from Vite's react-ts template
-4. deployed on Github pages (Yes we can do It for react SPA)
-
-### Backend Approach
-1. Code in Node.js and Express.js for API
-2. Postgress db server for SQL.
-3. My own kaam chalaau authentication logic (not good though).
-4. Deployed on a cheap 1 GB dual core Azure VM.
-
 ## Installation Instruction
-
 1. clone the repository
 ```bash
 git clone git@github.com:sanskarbhusal/clarity.git
@@ -48,5 +28,28 @@ npm run dev
 
 6. API will be available at: <br>
 [http://localhost:3000](http://localhost:3000)
+
+
+
+### Screenshots
+#### Login Page
+![](images/login-page.png)
+#### Signup Page
+![](images/signup-page.png)
+#### Home Page
+![](images/home-page.png)
+
+# Info
+### Frontend Approach
+1. Single Page application
+2. React + Tyscript
+3. Project structure scafolded from Vite's react-ts template
+4. deployed on Github pages (Yes we can do It for react SPA)
+
+### Backend Approach
+1. Code in Node.js and Express.js for API
+2. Postgress db server for SQL.
+3. My own kaam chalaau authentication logic (not good though).
+4. Deployed on a cheap 1 GB dual core Azure VM.
 
 
