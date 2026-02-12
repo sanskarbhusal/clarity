@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { format } from "date-fns"
 import config from "../config/config"
-import "../table.css"
+import "../styles/table.css"
 
 export default function Table() {
     const [data, setData] = useState([])
@@ -42,7 +42,7 @@ export default function Table() {
             )
         })
         return (
-            <table className="bg-gray-200 sm:w-[70%] transition-all">
+            <table className="bg-[#E3F8ED] sm:w-[70%]">
                 <thead>
                     <tr className="bg-[#125C38] text-white text-center">
                         <td>Amount</td>

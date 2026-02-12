@@ -48,14 +48,14 @@ export default function SignupPage() {
                 Clarity
             </h1>
             <span className="relative h-3 top-[28.5%] text-red-500 text-xl self-center font-normal">{errorMsg}</span>
-            <form className="relative top-[30%] w-[90%] sm:max-w-96 self-center flex flex-col gap-2 p-4 bg-[#125C38] text-white text-lg font-semibold border-[1px] border-solid border-gray-500 rounded-lg">
+            <form className="relative top-[30%] w-[90%] rounded-2xl sm:max-w-96 self-center flex flex-col gap-2 p-4 pl-6 pr-6 bg-[#125C38] text-white text-lg font-semibold border-[1px] border-solid border-gray-500">
                 <h2 className="text-2xl font-bold text-white mb-3">
                     Signup into Clarity
                 </h2>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-md font-medium mb-1">
                     <label htmlFor="email">Email</label>
                     <input
-                        className="rounded-md w-full text-black p-1"
+                        className="rounded-2xl w-full h-9 text-black text-sm font-normal p-1 "
                         type="email"
                         id="email"
                         value={email}
@@ -65,10 +65,10 @@ export default function SignupPage() {
                         }}
                     />
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col text-md font-medium mb-1">
                     <label htmlFor="password">Password</label>
                     <input
-                        className="rounded-md w-full text-black p-1"
+                        className="rounded-2xl w-full h-9 text-black text-sm font-normal p-1 "
                         type="password"
                         id="password"
                         value={password}
@@ -78,10 +78,10 @@ export default function SignupPage() {
                         }}
                     />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-md font-medium">
                     <label htmlFor="repeat_password">Repeat Password</label>
                     <input
-                        className="rounded-md w-full text-black p-1"
+                        className="rounded-2xl w-full h-9 text-black text-sm font-normal p-1 "
                         type="password"
                         id="repeat_password"
                         value={repeatPassword}

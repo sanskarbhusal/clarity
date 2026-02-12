@@ -6,7 +6,8 @@ import LoginPage from "./route-components/LoginPage"
 import SignupPage from "./route-components/SignupPage"
 import SignupSuccessPage from "./route-components/SignupSuccessPage"
 import HomePage from "./route-components/HomePage"
-import "./index.css"
+import "./styles/index.css"
+import "./styles/input.css"
 
 const router = createBrowserRouter([
   {
