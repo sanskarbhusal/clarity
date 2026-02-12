@@ -56,6 +56,7 @@ export default function () {
     useEffect(() => {
         async function fetchData() {
             const email = loggedInUser
+            console.log(email)
             const encodedEmail = encodeURIComponent(email)
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
@@ -81,10 +82,10 @@ export default function () {
         return () => {
             ignore = true
         }
-    }, [loggedInUser, netExpenses, categories]);
+    }, [loggedInUser]);
 
     return (
-        <div className="w-[85%] self-center flex justify-center">
+        <div className="w-[85%] sm:w-96 self-center flex justify-center">
             <Pie data={data} options={{
                 // responsive: true,
                 maintainAspectRatio: true
