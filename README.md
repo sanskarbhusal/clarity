@@ -24,7 +24,7 @@ npm start
 npm run dev
 ```
 5. You can then access the website at: <br>
-[http://localhost:3000](http://localhost:3000)
+[http://localhost:3000](http://localhost:5173)
 
 
 
