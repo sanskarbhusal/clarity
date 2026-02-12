@@ -41,6 +41,12 @@ const data = {
 
 export default function () {
     return (
-        <Pie data={data} />
+        <div className="w-[85%] self-center flex justify-center">
+            <Pie data={data} options={{
+                // responsive: true,
+                maintainAspectRatio: true
+            }}
+            />
+        </div>
     )
 }
