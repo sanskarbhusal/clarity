@@ -82,8 +82,24 @@ async function deleteTransaction(req, res) {
     }
 }
 
+async function getOverview(req, res) {
+    const email = req.params.email
+    let sql, values, result
+    try {
+        sql = "SELECT category, SUM(amount) FROM transactions WHERE email=$1 AND t_type='expense' GROUP BY category;"
+        values = [email]
+        result = await pool.query(sql, values)
+
+        res.status(200).json(result.rows)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).send()
+    }
+}
+
 export default {
     getList,
     editTransaction,
-    deleteTransaction
+    deleteTransaction,
+    getOverview
 }
