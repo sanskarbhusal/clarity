@@ -27,6 +27,6 @@ npm run dev
 [http://localhost:3000](http://localhost:5173)
 
 6. API will be available at: <br>
-[http://localhost:3000](http://localhost:5173)
+[http://localhost:3000](http://localhost:3000)
 
 
