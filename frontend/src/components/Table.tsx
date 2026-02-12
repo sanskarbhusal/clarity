@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { format } from "date-fns"
 import config from "../config/config"
 import "../table.css"
 
@@ -36,7 +37,7 @@ export default function Table() {
                     <td>{item.category}</td>
                     <td>{item.t_type}</td>
                     <td>{item.t_description}</td>
-                    <td>{item.t_date}</td>
+                    <td>{format(item.t_date, "MMM d, yyyy")}</td>
                 </tr>
             )
         })
