@@ -1,12 +1,14 @@
 import pool from "../db/pool.js"
 import bcrypt from "bcrypt"
 
+
 async function login(req, res) {
-    const body = req.body
+
+    const { body } = req
     let sql, values, result, password_hash
 
-    // Login as test user
-    if (body.email = "test@gmail.com") {
+    // Hash match bypass for test user.
+    if (body.email == "test@gmail.com") {
         res.status(200).send("Logged in as test user.")
         return
     }
@@ -16,7 +18,7 @@ async function login(req, res) {
         values = [body.email]
         result = await pool.query(sql, values)
 
-        // premature return with status 401 on wrong email
+        // premature return with status 401 on wrong email  
         if (result.rows.length == 0) {
             res.status(401).json({
                 message: "Wrong email/password"
@@ -45,8 +47,10 @@ async function login(req, res) {
 
 }
 
+
 async function signup(req, res) {
-    const body = req.body
+
+    const { body } = req
     let sql, values, result
 
     try {
@@ -67,12 +71,14 @@ async function signup(req, res) {
         sql = "INSERT INTO accounts(email, password_hash) VALUES($1, $2);"
         values = [body.email, hashedPassword]
         result = await pool.query(sql, values)
+
         res.status(200).send("Account created")
 
     } catch (err) {
         console.log(err.message)
         res.status(500)
     }
+
 }
 
 export default {
