@@ -1,6 +1,14 @@
 # Clarity: Expense Tracker
-Author: `Sanskar Bhusal` <br>
+**Author**: `Sanskar Bhusal` <br>
+**Project**: Clarity
 
+### Screenshots
+**Login Page**
+![](images/login-page.png)
+**Signup Page**
+![](images/signup-page.png)
+**Home Page**
+![](images/home-page.png)
 ### Frontend Approach
 1. Single Page application
 2. React + Tyscript
