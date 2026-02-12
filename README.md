@@ -1,5 +1,17 @@
 # Clarity: Expense Tracker
-Author: `Sanskar Bhusal`
+Author: `Sanskar Bhusal` <br>
+
+### Frontend Approach
+1. Single Page application
+2. React + Tyscript
+3. Project structure scafolded from Vite's react-ts template
+4. deployed on Github pages (Yes we can do It for react SPA)
+
+### Backend Approach
+1. Code in Node.js and Express.js for API
+2. Postgress db server for SQL.
+3. My own kaam chalaau authentication logic (not good though).
+4. Deployed on a cheap 1 GB dual core Azure VM.
 
 ## Installation Instruction
 
