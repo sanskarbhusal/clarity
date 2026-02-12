@@ -33,7 +33,7 @@ export default function Table() {
         const html = data.map((item: any) => {
             return (
                 <tr key={item.id}>
-                    <td>{item.amount}</td>
+                    <td>Rs {item.amount}</td>
                     <td>{item.category}</td>
                     <td>{item.t_type}</td>
                     <td>{item.t_description}</td>
@@ -42,7 +42,7 @@ export default function Table() {
             )
         })
         return (
-            <table className="bg-[#E3F8ED] sm:w-[70%]">
+            <table className="bg-[#E3F8ED] sm:w-[80%] border-[3px]">
                 <thead>
                     <tr className="bg-[#125C38] text-white text-center">
                         <td>Amount</td>
