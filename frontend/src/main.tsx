@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     Component: HomePage,
     // check login status inside the loader
     loader: async () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn")
-      if (!isLoggedIn) {
+      const loggedInUser = localStorage.getItem("loggedInUser")
+      if (!loggedInUser) {
         return redirect("/login")
       }
     }
