@@ -4,51 +4,44 @@ import "../table.css"
 
 export default function Table() {
     const [data, setData] = useState([])
-    const [loggedInUser, setLoggedInUser] = useState("")
-    const [haveData, setHaveData] = useState(true)
 
     useEffect(() => {
+        const loggedInUser = localStorage.getItem("loggedInUser")
+        const encodedEmail = encodeURIComponent(loggedInUser as string)
+
         async function fetchData() {
-            const email = loggedInUser
-            const encodedEmail = encodeURIComponent(email)
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}`);
                 if (!response.ok) {
                     throw new Error("Something went wrong");
                 }
                 const result = await response.json();
-
-                if (!ignore) {
-                    setData(result)
-                }
+                console.log(result)
+                setData(result)
 
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
-
         }
-        let ignore = false
         fetchData()
-        return () => {
-            ignore = true
-        }
-    }, [loggedInUser])
+    }, [])
 
-    if (haveData) {
-        const html = data.map((item) => {
+    if (data.length > 0) {
+        console.log(data)
+        const html = data.map((item: any) => {
             return (
-                <tr>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
-                    <td>data</td>
+                <tr key={item.id}>
+                    <td>{item.amount}</td>
+                    <td>{item.category}</td>
+                    <td>{item.t_type}</td>
+                    <td>{item.t_description}</td>
+                    <td>{item.t_date}</td>
                 </tr>
             )
         })
         return (
-            <table className="bg-gray-200 w-full sm:w-[70%]">
+            <table className="bg-gray-200 sm:w-[70%]">
                 <thead>
                     <tr className="bg-[#125C38] text-white text-center">
                         <td>Amount</td>
@@ -65,9 +58,8 @@ export default function Table() {
         )
     } else {
         return (
-            <div>
-                No record found
-                <button>Add Record</button>
+            <div className="animate-pulse">
+                Loading table data...
             </div>
         )
     }

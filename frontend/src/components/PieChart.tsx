@@ -51,13 +51,11 @@ export default function () {
             navigate("/login")
         }
         setLoggedInUser(loggedInUser as string)
-    }, [])
+    })
 
     useEffect(() => {
         async function fetchData() {
-            const email = loggedInUser
-            console.log(email)
-            const encodedEmail = encodeURIComponent(email)
+            const encodedEmail = encodeURIComponent(loggedInUser)
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
                 if (!response.ok) {
@@ -67,22 +65,16 @@ export default function () {
                 const categories = result.map((item: any) => item.category)
                 const netExpenses = result.map((item: any) => item.sum)
 
-                if (!ignore) {
-                    setCategories(categories)
-                    setNetExpenses(netExpenses)
-                }
+                setCategories(categories)
+                setNetExpenses(netExpenses)
 
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
         }
-        let ignore = false
         fetchData();
-        return () => {
-            ignore = true
-        }
-    }, [loggedInUser]);
+    });
 
     return (
         <div className="w-[85%] sm:w-96 self-center flex justify-center">
