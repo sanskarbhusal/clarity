@@ -4,6 +4,7 @@ import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import LoginPage from "./route-components/LoginPage"
 import SignupPage from "./route-components/SignupPage"
+import SignupSuccessPage from "./route-components/SignupSuccessPage"
 import HomePage from "./route-components/HomePage"
 import "./index.css"
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     Component: SignupPage
+  },
+  {
+    path: "/signupSuccess",
+    Component: SignupSuccessPage
   },
   {
     path: "/login",

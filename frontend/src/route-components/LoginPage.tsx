@@ -11,7 +11,9 @@ async function handleLogin(email: string, password: string, setErrorMsg: any, na
             },
             body: JSON.stringify({ email, password })
         })
-
+        if (response.status == 500) {
+            throw new Error("Backend Padkyo!")
+        }
         if (!response.ok) {
             const resBody = await response.json()
             throw new Error(resBody.message)
