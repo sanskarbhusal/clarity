@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, Link } from "react-router"
 import config from "../config/config"
 
 async function handleLogin(email: string, password: string, setErrorMsg: any, navigate: any) {
@@ -75,6 +75,11 @@ export default function LoginPage() {
                     Login
                 </button>
             </form>
+            <Link
+                className="relative top-[31%] self-center text-[#125C38] hover:underline "
+                to="/signup">
+                Don't have an account?
+            </Link>
         </div>
     )
 }
