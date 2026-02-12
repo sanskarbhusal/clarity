@@ -1,10 +1,10 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react"
 import config from "../config/config";
 import { useNavigate } from "react-router";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 
 export default function () {
@@ -77,10 +77,17 @@ export default function () {
     });
 
     return (
-        <div className="w-[85%] sm:w-96 self-center flex justify-center">
+        <div className=" sm:w-96 self-center flex justify-center">
             <Pie data={data} options={{
-                // responsive: true,
-                maintainAspectRatio: true
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Expense Overview',
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
             }}
             />
         </div>

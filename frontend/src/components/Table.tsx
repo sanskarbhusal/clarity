@@ -41,7 +41,7 @@ export default function Table() {
             )
         })
         return (
-            <table className="bg-gray-200 sm:w-[70%]">
+            <table className="bg-gray-200 sm:w-[70%] transition-all">
                 <thead>
                     <tr className="bg-[#125C38] text-white text-center">
                         <td>Amount</td>

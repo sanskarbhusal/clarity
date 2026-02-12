@@ -41,7 +41,7 @@ export default function LoginPage() {
             <span className="relative h-3 top-[28.5%] text-red-500 text-xl self-center font-normal">{errorMsg}</span>
             <form className="relative top-[30%] w-[90%] sm:max-w-96 self-center flex flex-col gap-2 p-4 bg-[#125C38] text-white text-lg font-semibold border-[1px] border-solid border-gray-500 rounded-lg">
                 <h2 className="text-2xl font-bold text-white mb-3">
-                    Welcom Back
+                    Welcome Back
                 </h2>
                 <div className="flex justify-between gap-[3.65rem]">
                     <label htmlFor="email">Email</label>
