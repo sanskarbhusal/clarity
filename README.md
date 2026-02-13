@@ -38,6 +38,8 @@ npm run dev
 ![](images/signup-page.png)
 #### Home Page
 ![](images/home-page.png)
+#### Transaction Details modal
+![](images/add-transaction.png)
 
 # Info
 ### Frontend Approach
