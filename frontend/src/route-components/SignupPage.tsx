@@ -37,11 +37,13 @@ async function handleSignup(email: string, password: string, repeatPassword: str
 }
 
 export default function SignupPage() {
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
+
     return (
         <div className="h-[100vh] flex flex-col bg-[#E3F8ED]">
             <h1 className="text-3xl font-extrabold font-mono text-[#125C38] m-3">

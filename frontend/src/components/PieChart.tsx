@@ -7,8 +7,8 @@ import { useNavigate } from "react-router";
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 
-export default function () {
-    const [loggedInUser, setLoggedInUser] = useState("")
+export default function PieChart() {
+    // const [loggedInUser, setLoggedInUser] = useState("")
     const [netExpenses, setNetExpenses] = useState([])
     const [categories, setCategories] = useState([])
 
@@ -43,19 +43,17 @@ export default function () {
     };
 
 
-
-    // check for login status
     useEffect(() => {
+
+        // Check login status
         const loggedInUser = localStorage.getItem("loggedInUser")
+
         if (!loggedInUser) {
             navigate("/login")
         }
-        setLoggedInUser(loggedInUser as string)
-    })
 
-    useEffect(() => {
         async function fetchData() {
-            const encodedEmail = encodeURIComponent(loggedInUser)
+            const encodedEmail = encodeURIComponent(loggedInUser as string)
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
                 if (!response.ok) {
@@ -65,16 +63,25 @@ export default function () {
                 const categories = result.map((item: any) => item.category)
                 const netExpenses = result.map((item: any) => item.sum)
 
-                setCategories(categories)
-                setNetExpenses(netExpenses)
+                if (!ignore) {
+                    setCategories(categories)
+                    setNetExpenses(netExpenses)
+                }
 
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
         }
+
+        let ignore = false
         fetchData();
-    });
+
+        return () => {
+            ignore = true
+        }
+
+    }, []);
 
     return (
         <div className=" sm:w-96 self-center flex justify-center">

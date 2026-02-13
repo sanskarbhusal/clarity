@@ -5,7 +5,9 @@ import Table from "../components/Table"
 import AddTransactionModal from "../components/AddTransactionModal"
 
 function App() {
+
     const [showModal, setShowModal] = useState(false)
+
     return (
         <div className={`h-[100dvh] flex flex-col gap-10 justify-around items-center ml-2 mr-2 transition-all ${showModal ? "blur-3xl" : ""}`}>
             <h1 className="w-full top-0 flex justify-between m-3 text-3xl font-extrabold font-mono text-[#125C38]">
@@ -14,7 +16,7 @@ function App() {
                     onClick={() => { setShowModal(true) }}
                 >+</button>
                 {showModal && createPortal(
-                    <AddTransactionModal closeModal={() => setShowModal(false)} />, document.body
+                    <AddTransactionModal closeModal={() => setShowModal(true)} />, document.body
                 )}
             </h1>
             <PieChart />

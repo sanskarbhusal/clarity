@@ -31,10 +31,12 @@ async function handleLogin(email: string, password: string, setErrorMsg: any, na
 }
 
 export default function LoginPage() {
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
+
     return (
         <div className="h-[100vh] flex flex-col bg-[#E3F8ED]">
             <h1 className="text-3xl font-extrabold font-mono text-[#125C38] m-3">

@@ -1,7 +1,12 @@
 td {
-    border: 1px solid gray;
+    border-block: 1px solid green;
+    border-inline: 1px solid green;
 }
 
 tr {
     text-align: center;
+}
+
+table {
+    height: 200px !important;
 }

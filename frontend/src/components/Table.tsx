@@ -32,7 +32,7 @@ export default function Table() {
         console.log(data)
         const html = data.map((item: any) => {
             return (
-                <tr key={item.id}>
+                <tr key={item.id} className="hover:bg-gray-300 hover:scale-105 transition-all">
                     <td>Rs {item.amount}</td>
                     <td>{item.category}</td>
                     <td>{item.t_type}</td>
@@ -41,21 +41,24 @@ export default function Table() {
                 </tr>
             )
         })
+
         return (
-            <table className="bg-[#E3F8ED] sm:w-[80%] border-[3px]">
-                <thead>
-                    <tr className="bg-[#125C38] text-white text-center">
-                        <td>Amount</td>
-                        <td>Category</td>
-                        <td>Type</td>
-                        <td>Description</td>
-                        <td>Date</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {html}
-                </tbody>
-            </table>
+            <div className="overflow-y-scroll overflow-x-hidden h-96">
+                <table className="bg-[#E3F8ED] sm:w-[80%]">
+                    <thead>
+                        <tr className="bg-[#125C38] text-white text-center">
+                            <td>Amount</td>
+                            <td>Category</td>
+                            <td>Type</td>
+                            <td>Description</td>
+                            <td>Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {html}
+                    </tbody>
+                </table>
+            </div>
         )
     } else {
         return (
