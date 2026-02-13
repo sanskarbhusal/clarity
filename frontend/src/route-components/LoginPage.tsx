@@ -38,12 +38,12 @@ export default function LoginPage() {
     const navigate = useNavigate()
 
     return (
-        <div className="h-[100vh] flex flex-col bg-[#E3F8ED]">
-            <h1 className="text-3xl font-extrabold font-mono text-[#125C38] m-3">
+        <div className="relative h-[100vh] flex flex-col justify-center gap-4 bg-[#E3F8ED]">
+            <h1 className="text-3xl fixed top-0 font-extrabold font-mono text-[#125C38] m-3">
                 Clarity
             </h1>
-            <span className="relative h-3 top-[28.5%] text-red-500 text-xl self-center font-normal">{errorMsg}</span>
-            <form className="relative top-[30%] rounded-2xl w-[90%] sm:max-w-96 self-center flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#125C38] text-white text-lg font-semibold border-[1px] border-solid border-gray-500">
+            <span className="relative h-3 text-red-500 text-xl self-center font-normal">{errorMsg}</span>
+            <form className="relative rounded-2xl w-[90%] sm:max-w-96 self-center flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#125C38] text-white text-lg font-semibold border-[1px] border-solid border-gray-500">
                 <h2 className="text-2xl font-bold text-white mb-3">
                     Welcome Back
                 </h2>
@@ -82,7 +82,7 @@ export default function LoginPage() {
                 </button>
             </form>
             <Link
-                className="relative top-[31%] self-center text-[#125C38] hover:underline "
+                className="relative self-center text-[#125C38] hover:underline "
                 to="/signup">
                 Don't have an account?
             </Link>
