@@ -54,7 +54,7 @@ export default function Table() {
 
         return (
             <div className="overflow-y-auto overflow-x-hidden mb-5 w-full justify-center flex">
-                <table className="bg-[#E3F8ED] relative sm:w-[85%] max-w-[1100px]">
+                <table className="bg-[#E3F8ED] relative sm:w-[85%] max-w-[900]">
                     <thead className="sticky top-0">
                         <tr className="bg-[#125C38] text-white text-center">
                             <td>Amount</td>
