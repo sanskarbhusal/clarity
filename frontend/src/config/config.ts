@@ -1,4 +1,4 @@
-const environment: String = "local"
+const environment: String = "production"
 
 type Config = {
     API_BASE_URL: String
