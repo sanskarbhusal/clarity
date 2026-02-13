@@ -81,18 +81,12 @@ export default function PieChart() {
     if (loading) {
         return (
             <div className="animate-pulse">
-                Loading...
+                Loading Chart...
             </div>
         )
     }
 
-    if (categories.length == 0 || netExpenses.length == 0) {
-        return (
-            <>
-                No data
-            </>
-        )
-    } else {
+    if (categories.length != 0 && netExpenses.length != 0) {
         return (
             <div className=" sm:w-96 self-center flex justify-center">
                 <Pie data={data} options={{

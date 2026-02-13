@@ -33,7 +33,7 @@ export default function Table() {
     if (loading) {
         return (
             <div className="animate-pulse">
-                Loading table data...
+                Loading Table...
             </div>
         )
     }
@@ -53,9 +53,9 @@ export default function Table() {
         })
 
         return (
-            <div className="overflow-y-scroll overflow-x-hidden h-96">
+            <div className="overflow-y-auto overflow-x-hidden w-full h-full mb-5 flex justify-center">
                 <table className="bg-[#E3F8ED] sm:w-[80%]">
-                    <thead>
+                    <thead className="sticky top-0">
                         <tr className="bg-[#125C38] text-white text-center">
                             <td>Amount</td>
                             <td>Category</td>
