@@ -11,6 +11,7 @@ export default function PieChart() {
     // const [loggedInUser, setLoggedInUser] = useState("")
     const [netExpenses, setNetExpenses] = useState([])
     const [categories, setCategories] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -54,49 +55,62 @@ export default function PieChart() {
 
         async function fetchData() {
             const encodedEmail = encodeURIComponent(loggedInUser as string)
+
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
                 if (!response.ok) {
                     throw new Error("Something went wrong");
                 }
+
                 const result = await response.json();
                 const categories = result.map((item: any) => item.category)
                 const netExpenses = result.map((item: any) => item.sum)
 
-                if (!ignore) {
-                    setCategories(categories)
-                    setNetExpenses(netExpenses)
-                }
+                setCategories(categories)
+                setNetExpenses(netExpenses)
+                setLoading(false)
 
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
         }
-
-        let ignore = false
         fetchData();
-
-        return () => {
-            ignore = true
-        }
-
     }, []);
 
-    return (
-        <div className=" sm:w-96 self-center flex justify-center">
-            <Pie data={data} options={{
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Expense Overview',
-                        font: {
-                            size: 18
+    if (loading) {
+        return (
+            <div className="animate-pulse">
+                Loading...
+            </div>
+        )
+    }
+
+    if (categories.length == 0 || netExpenses.length == 0) {
+        return (
+            <>
+                No data
+            </>
+        )
+    } else {
+        return (
+            <div className=" sm:w-96 self-center flex justify-center">
+                <Pie data={data} options={{
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Expense Overview',
+                            font: {
+                                size: 18
+                            }
                         }
                     }
-                }
-            }}
-            />
-        </div>
-    )
+                }}
+                />
+            </div>
+        )
+    }
+
+
+
 }

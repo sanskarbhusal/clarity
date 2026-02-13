@@ -5,6 +5,7 @@ import "../styles/table.css"
 
 export default function Table() {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem("loggedInUser")
@@ -17,6 +18,7 @@ export default function Table() {
                     throw new Error("Something went wrong");
                 }
                 const result = await response.json();
+                setLoading(false)
                 console.log(result)
                 setData(result)
 
@@ -27,6 +29,14 @@ export default function Table() {
         }
         fetchData()
     }, [])
+
+    if (loading) {
+        return (
+            <div className="animate-pulse">
+                Loading table data...
+            </div>
+        )
+    }
 
     if (data.length > 0) {
         console.log(data)
@@ -62,8 +72,8 @@ export default function Table() {
         )
     } else {
         return (
-            <div className="animate-pulse">
-                Loading table data...
+            <div>
+                No data.
             </div>
         )
     }
