@@ -104,7 +104,7 @@ export default function AddTransactionModal({ closeModal }: any) {
             </div>
             <div className="flex flex-col justify-between gap-4 text-md">
                 <textarea
-                    className="rounded-2xl w-full max-h-48 text-black text-sm font-normal p-1"
+                    className="rounded-2xl w-full max-h-48 text-black text-sm font-normal p-3"
                     placeholder="Description"
                     rows={10}
                     value={t_description}
@@ -114,8 +114,6 @@ export default function AddTransactionModal({ closeModal }: any) {
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={() => {
                     handleClick({ amount, t_type, category, t_description, closeModal })
-
-                    // Trigger refetch in PieChar and Table component
                 }}>
                 Add
             </button>
