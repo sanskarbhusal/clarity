@@ -8,7 +8,7 @@ let config: Config
 
 if (environment == "production") {
     config = {
-        API_BASE_URL: "https://74.225.250.180:3000"
+        API_BASE_URL: "https://clarity-api.sanskarbhusal.com.np"
     }
 } else {
     config = {
