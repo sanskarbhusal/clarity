@@ -15,7 +15,7 @@ if (process.env.ENVIRONMENT == 'production') {
         ssl: {
             rejectUnauthorized: false
         },
-        idleTimeoutMillis: 1000
+        // idleTimeoutMillis: 1000
     }
 } else {
     dbConfig = {
