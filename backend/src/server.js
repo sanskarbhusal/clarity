@@ -10,7 +10,9 @@ const port = process.env.PORT
 
 app.set("trust proxy", true)
 // Middlewares
-app.use(cors())
+app.use(cors({
+    origin: "*"
+}))
 app.use(express.json())
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/transaction", transactionRouter)
