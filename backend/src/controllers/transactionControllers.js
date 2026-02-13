@@ -98,11 +98,11 @@ async function addTransaction(req, res) {
     try {
         sql = "INSERT INTO transactions (email, amount, t_type, category, t_description, t_date) VALUES($1, $2, $3, $4, $5, $6);"
         values = [email, amount, t_type, category, t_description, t_date]
-        const result = await pool.query(sql, values)
+        result = await pool.query(sql, values)
         if (!result.rowCount == 1) {
             res.status(500).json({ message: "Insertion failed." })
         }
-        res.status(200).json(result)
+        res.status(200).json({ message: 'sucess' })
     } catch (err) {
         console.log(err.message)
         res.status(500).send("Database padkyo.")

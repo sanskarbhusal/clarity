@@ -53,8 +53,8 @@ export default function Table() {
         })
 
         return (
-            <div className="overflow-y-auto overflow-x-hidden w-full h-full mb-5 flex justify-center">
-                <table className="bg-[#E3F8ED] sm:w-[80%]">
+            <div className="overflow-y-auto bg-red-400 overflow-x-hidden mb-5">
+                <table className="bg-[#E3F8ED] relative sm:w-[80%] h-fit">
                     <thead className="sticky top-0">
                         <tr className="bg-[#125C38] text-white text-center">
                             <td>Amount</td>
@@ -64,7 +64,7 @@ export default function Table() {
                             <td>Date</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {html}
                     </tbody>
                 </table>
