@@ -112,7 +112,7 @@ export default function AddTransactionModal({ closeModal }: any) {
                 />
             </div>
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
-                onClick={(e) => {
+                onClick={() => {
                     handleClick({ amount, t_type, category, t_description, closeModal })
 
                     // Trigger refetch in PieChar and Table component
