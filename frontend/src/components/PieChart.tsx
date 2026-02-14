@@ -1,19 +1,19 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { PieChartDataSyncContext } from "../Context";
 import config from "../config/config";
-import { useNavigate } from "react-router";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 
 export default function PieChart() {
-    // const [loggedInUser, setLoggedInUser] = useState("")
+
     const [netExpenses, setNetExpenses] = useState([])
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
-
-    const navigate = useNavigate()
+    const needSync = useContext(PieChartDataSyncContext)
 
     // Data
     const data = {
@@ -46,26 +46,29 @@ export default function PieChart() {
 
     useEffect(() => {
 
-        // Check login status
-        const loggedInUser = localStorage.getItem("loggedInUser")
+        const loggedInUser = localStorage.getItem("loggedInUser");
 
-        if (!loggedInUser) {
-            navigate("/login")
-        }
+        (async () => {
 
-        async function fetchData() {
             const encodedEmail = encodeURIComponent(loggedInUser as string)
 
             try {
+                // Read transactin overview
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
+
+                // Error on request fail
                 if (!response.ok) {
                     throw new Error("Something went wrong");
                 }
 
+                // Parse response json payload into object
                 const result = await response.json();
+
+                // Prepare the fetched data for PieChart
                 const categories = result.map((item: any) => item.category)
                 const netExpenses = result.map((item: any) => item.sum)
 
+                // Update state
                 setCategories(categories)
                 setNetExpenses(netExpenses)
                 setLoading(false)
@@ -74,9 +77,10 @@ export default function PieChart() {
                 const err = error as Error
                 console.log(err.message);
             }
-        }
-        fetchData();
-    }, []);
+
+        })()
+
+    }, [needSync]);
 
     if (loading) {
         return (
@@ -87,6 +91,7 @@ export default function PieChart() {
     }
 
     if (categories.length != 0 && netExpenses.length != 0) {
+
         return (
             <div className=" sm:w-96 self-center flex justify-center">
                 <Pie data={data} options={{
@@ -103,8 +108,6 @@ export default function PieChart() {
                 />
             </div>
         )
+
     }
-
-
-
 }

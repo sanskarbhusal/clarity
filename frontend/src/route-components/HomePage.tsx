@@ -1,28 +1,42 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
+import { useNavigate } from "react-router"
 import PieChart from '../components/PieChart'
 import Table from "../components/Table"
+import { PieChartDataSyncContext, TableDataSyncContext } from "../Context"
 import AddTransactionModal from "../components/AddTransactionModal"
 
 function App() {
-
     const [showModal, setShowModal] = useState(false)
-    // const [noData, setNoData] = useState(true)
-    // const homeContext = useContext(4)
+    const [needSync, setNeedSync] = useState(false)
+    const navigate = useNavigate()
+
+    // Check if user is logged in (my kaam chalaau auth logic) 
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("loggedInUser")
+        if (!loggedInUser) {
+            navigate("/login")
+        }
+    })
 
     return (
-        <div className={`h-[100dvh] flex flex-col gap-10 items-center transition-all ${showModal ? "blur-3xl" : ""}`}>
+        <div className={`h-[100dvh] flex flex-col gap-10 mx-3 items-center transition-all ${showModal ? "blur-3xl" : ""}`}>
             <h1 className="w-full flex justify-between m-3 text-3xl font-extrabold font-mono text-[#125C38]">
                 Clarity
-                <button className="font-black text-4xl mr-2 mt-[0.4rem] w-[2.95rem] text-[#125C38] bg-gray-100 border-[1px] border-solid border-gray-200 hover:bg-gray-200 active:scale-90 transition-all rounded-full pt-1 "
+                <button className="font-black text-4xl w-[2.95rem] text-[#125C38] bg-gray-100 border-[1px] border-solid border-gray-200 hover:bg-gray-200 active:scale-90 transition-all rounded-full pt-1 "
                     onClick={() => { setShowModal(true) }}
                 >+</button>
                 {showModal && createPortal(
-                    <AddTransactionModal closeModal={() => setShowModal(false)} />, document.body
+                    //  
+                    <AddTransactionModal closeModal={() => setShowModal(false)} triggerDataSync={() => setNeedSync(true)} />, document.body
                 )}
             </h1>
-            <PieChart />
-            <Table />
+            <PieChartDataSyncContext value={{ needSync }}>
+                <PieChart />
+            </PieChartDataSyncContext >
+            <TableDataSyncContext value={{ needSync }}>
+                <Table />
+            </TableDataSyncContext>
         </div>
     )
 }

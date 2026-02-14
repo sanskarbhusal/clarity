@@ -1,11 +1,13 @@
 import { useState } from "react"
 import config from "../config/config"
 
-async function handleClick({ amount, t_type, category, t_description, closeModal }: any) {
+async function handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync }: any) {
 
     const email = localStorage.getItem("loggedInUser")
 
     try {
+
+        // insert transaction data
         const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/add`, {
             method: "POST",
             headers: {
@@ -13,21 +15,26 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
             },
             body: JSON.stringify({ email, amount, t_type, category, t_description, t_date: new Date() })
         })
+
+        // parse response json payload into object
         const result = await response.json()
 
+        // Error on request fail
         if (!response.ok) {
             throw new Error(result.message)
         }
 
+        triggerDataSync()
         closeModal()
 
     } catch (error) {
         const err = error as Error
         console.log(err.message)
     }
+
 }
 
-export default function AddTransactionModal({ closeModal }: any) {
+export default function AddTransaction({ closeModal, triggerDataSync }: any) {
 
     const [amount, setAmount] = useState("")
     const [t_type, setType] = useState("")
@@ -110,7 +117,7 @@ export default function AddTransactionModal({ closeModal }: any) {
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={async (e) => {
                     e.preventDefault()
-                    await handleClick({ amount, t_type, category, t_description, closeModal })
+                    await handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync })
                 }}>
                 Add
             </button>

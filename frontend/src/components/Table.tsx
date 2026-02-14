@@ -1,34 +1,43 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { TableDataSyncContext } from "../Context"
 import { format } from "date-fns"
 import config from "../config/config"
 import "../styles/table.css"
 
+
 export default function Table() {
+
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    const needSync = useContext(TableDataSyncContext)
 
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("loggedInUser")
-        const encodedEmail = encodeURIComponent(loggedInUser as string)
 
-        async function fetchData() {
+        const loggedInUser = localStorage.getItem("loggedInUser")
+        const encodedEmail = encodeURIComponent(loggedInUser as string);
+
+        // Fetch data for tabular view
+        (async () => {
+
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}`);
                 if (!response.ok) {
                     throw new Error("Something went wrong");
                 }
+
                 const result = await response.json();
+
                 setLoading(false)
-                console.log(result)
                 setData(result)
 
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
-        }
-        fetchData()
-    }, [])
+
+        })();
+
+    }, [needSync])
 
     if (loading) {
         return (
@@ -39,7 +48,7 @@ export default function Table() {
     }
 
     if (data.length > 0) {
-        console.log(data)
+
         const html = data.map((item: any) => {
             return (
                 <tr key={item.id} className="hover:bg-gray-300 hover:scale-105 transition-all">
@@ -70,11 +79,10 @@ export default function Table() {
                 </table>
             </div>
         )
+
     } else {
         return (
-            <div>
-                No data.
-            </div>
+            <div>No data</div>
         )
     }
 }
