@@ -2,7 +2,6 @@ import pool from "../db/pool.js"
 
 
 async function getList(req, res) {
-
     const email = req.query.email
     let sql, values, result
     const category = req.query.category
@@ -26,7 +25,6 @@ async function getList(req, res) {
 
 
 async function editTransaction(req, res) {
-
     const { amount, t_type, category, t_description, t_date, id } = req.body
     let sql, values, result
 
@@ -45,12 +43,10 @@ async function editTransaction(req, res) {
         console.log(err.message)
         res.status(500).send()
     }
-
 }
 
 
 async function deleteTransaction(req, res) {
-
     const { transaction_id } = req.params
     let sql, values, result
 
@@ -69,11 +65,9 @@ async function deleteTransaction(req, res) {
         console.log(err.message)
         res.status(500).send()
     }
-
 }
 
 async function getOverview(req, res) {
-
     const { email } = req.params
     let sql, values, result
 
@@ -86,12 +80,10 @@ async function getOverview(req, res) {
         console.log(err.message)
         res.status(500).send()
     }
-
 }
 
 
 async function addTransaction(req, res) {
-
     const { email, amount, t_type, category, t_description, t_date } = req.body
     let sql, values, result
 
@@ -99,15 +91,18 @@ async function addTransaction(req, res) {
         sql = "INSERT INTO transactions (email, amount, t_type, category, t_description, t_date) VALUES($1, $2, $3, $4, $5, $6);"
         values = [email, amount, t_type, category, t_description, t_date]
         result = await pool.query(sql, values)
-        if (!result.rowCount == 1) {
+
+        if (result.rowCount != 1) {
             res.status(500).json({ message: "Insertion failed." })
+            return
         }
-        res.status(200).json({ message: 'sucess' })
+
+        res.status(200).json({ message: 'success' })
+
     } catch (err) {
         console.log(err.message)
         res.status(500).send("Database padkyo.")
     }
-
 }
 
 
