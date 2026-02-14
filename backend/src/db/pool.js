@@ -12,6 +12,7 @@ if (process.env.ENVIRONMENT == 'production') {
         password: process.env.DB_PASSWORD_PRODUCTION,
         database: process.env.DB_NAME_PRODUCTION,
         port: process.env.DB_PORT_PRODUCTION,
+        min: 2,
         ssl: {
             rejectUnauthorized: false
         }
@@ -23,6 +24,7 @@ if (process.env.ENVIRONMENT == 'production') {
         password: process.env.DB_PASSWORD_LOCAL,
         database: process.env.DB_NAME_LOCAL,
         port: process.env.DB_PORT_LOCAL,
+        min: 2,
         ssl: {
             rejectUnauthorized: false
         }
