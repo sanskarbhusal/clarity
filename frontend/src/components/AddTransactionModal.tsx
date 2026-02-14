@@ -13,16 +13,12 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
             },
             body: JSON.stringify({ email, amount, t_type, category, t_description, t_date: new Date() })
         })
-
         const result = await response.json()
-
-        if (response.status == 500) {
-            throw new Error("Backend Padkyo!")
-        }
 
         if (!response.ok) {
             throw new Error(result.message)
         }
+
         closeModal()
 
     } catch (error) {
@@ -112,8 +108,9 @@ export default function AddTransactionModal({ closeModal }: any) {
                 />
             </div>
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
-                onClick={() => {
-                    handleClick({ amount, t_type, category, t_description, closeModal })
+                onClick={async (e) => {
+                    e.preventDefault()
+                    await handleClick({ amount, t_type, category, t_description, closeModal })
                 }}>
                 Add
             </button>

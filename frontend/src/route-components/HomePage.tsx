@@ -18,7 +18,7 @@ function App() {
                     onClick={() => { setShowModal(true) }}
                 >+</button>
                 {showModal && createPortal(
-                    <AddTransactionModal closeModal={() => setShowModal(true)} />, document.body
+                    <AddTransactionModal closeModal={() => setShowModal(false)} />, document.body
                 )}
             </h1>
             <PieChart />
