@@ -7,7 +7,7 @@ import { PieChartDataSyncContext, TableDataSyncContext } from "../Context"
 import AddTransactionModal from "../components/AddTransactionModal"
 
 function App() {
-    const [showModal, setShowModal] = useState(false)
+    const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
     const [needSync, setNeedSync] = useState(false)
     const navigate = useNavigate()
 
@@ -20,15 +20,15 @@ function App() {
     })
 
     return (
-        <div className={`h-[100dvh] flex flex-col  items-center transition-all ${showModal ? "blur-3xl" : ""}`}>
+        <div className={`h-[100dvh] flex flex-col  items-center transition-all ${showAddTransactionModal ? "blur-3xl" : ""}`}>
             <div className="w-full flex justify-between mt-2 px-2 text-3xl font-extrabold font-mono text-[#125C38]">
                 Clarity
                 <button className="font-black text-4xl w-[2.95rem] text-[#125C38] bg-gray-100 border-[1px] border-solid border-gray-200 hover:bg-gray-200 active:scale-90 transition-all rounded-full pt-1 "
-                    onClick={() => { setShowModal(true) }}
+                    onClick={() => { setShowAddTransactionModal(true) }}
                 >+</button>
-                {showModal && createPortal(
+                {showAddTransactionModal && createPortal(
                     //  
-                    <AddTransactionModal closeModal={() => setShowModal(false)} triggerDataSync={() => setNeedSync(true)} />, document.body
+                    <AddTransactionModal closeModal={() => setShowAddTransactionModal(false)} triggerDataSync={() => setNeedSync(true)} />, document.body
                 )}
             </div>
             <PieChartDataSyncContext value={{ needSync }}>
