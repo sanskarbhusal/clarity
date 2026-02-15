@@ -1,0 +1,22 @@
+tbody>tr {
+    height: 2.55rem;
+    text-align: center;
+}
+
+tbody>tr :nth-child(4) {
+    text-align: justify;
+    max-width: 20rem;
+}
+
+tbody>tr :nth-child(5) {
+    text-align: left;
+    min-width: 9.1em;
+}
+
+tbody>tr>:nth-child(1) {
+    min-width: 5.2rem;
+}
+
+td {
+    padding-left: 0.5rem;
+}
