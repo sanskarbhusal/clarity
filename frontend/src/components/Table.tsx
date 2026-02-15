@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { TableDataSyncContext } from "../Context"
+import { CiEdit as EditButton } from "react-icons/ci";
 import { format } from "date-fns"
 import config from "../config/config"
 import "../styles/table.css"
@@ -64,10 +65,10 @@ export default function Table() {
         })
 
         return (
-            <div className="overflow-y-auto overflow-x-hidden mb-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex">
-                <table className=" w-full">
-                    <thead className="sticky top-0 h-10">
-                        <tr className="bg-[#125C38] text-white text-center">
+            <div className="overflow-y-auto overflow-x-hidden mb-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex shadow-lg shadow-gray-500">
+                <table className="w-full p-0 m-0">
+                    <thead className="sticky top-0 h-9">
+                        <tr className="bg-[#125C38] text-white font-bold text-lg text-center">
                             <td>Amount</td>
                             <td>Category</td>
                             <td>Type</td>

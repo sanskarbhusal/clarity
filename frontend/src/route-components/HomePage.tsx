@@ -20,8 +20,8 @@ function App() {
     })
 
     return (
-        <div className={`h-[100dvh] flex flex-col gap-10 mx-3 items-center transition-all ${showModal ? "blur-3xl" : ""}`}>
-            <h1 className="w-full flex justify-between m-3 text-3xl font-extrabold font-mono text-[#125C38]">
+        <div className={`h-[100dvh] flex flex-col  items-center transition-all ${showModal ? "blur-3xl" : ""}`}>
+            <div className="w-full flex justify-between mt-2 px-2 text-3xl font-extrabold font-mono text-[#125C38]">
                 Clarity
                 <button className="font-black text-4xl w-[2.95rem] text-[#125C38] bg-gray-100 border-[1px] border-solid border-gray-200 hover:bg-gray-200 active:scale-90 transition-all rounded-full pt-1 "
                     onClick={() => { setShowModal(true) }}
@@ -30,10 +30,13 @@ function App() {
                     //  
                     <AddTransactionModal closeModal={() => setShowModal(false)} triggerDataSync={() => setNeedSync(true)} />, document.body
                 )}
-            </h1>
+            </div>
             <PieChartDataSyncContext value={{ needSync }}>
                 <PieChart />
             </PieChartDataSyncContext >
+            {/* This div is for gap */}
+            <div className="min-h-5"></div>
+
             <TableDataSyncContext value={{ needSync }}>
                 <Table />
             </TableDataSyncContext>
