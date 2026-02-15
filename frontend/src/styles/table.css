@@ -6,3 +6,11 @@ td {
 tr {
     text-align: center;
 }
+
+tbody>tr {
+    height: 2.15rem;
+}
+
+td {
+    padding-inline: 5px;
+}

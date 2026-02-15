@@ -49,9 +49,11 @@ export default function Table() {
 
     if (data.length > 0) {
 
+        let count = data.length
         const html = data.map((item: any) => {
+            count--
             return (
-                <tr key={item.id} className="hover:bg-gray-300 hover:scale-105 transition-all">
+                <tr key={item.id} style={{ backgroundColor: count % 2 == 0 ? "white" : "#E3F8ED" }}>
                     <td>Rs {item.amount}</td>
                     <td>{item.category}</td>
                     <td>{item.t_type}</td>
@@ -62,9 +64,9 @@ export default function Table() {
         })
 
         return (
-            <div className="overflow-y-auto overflow-x-hidden mb-5 w-full justify-center flex">
-                <table className="bg-[#E3F8ED] relative sm:w-[85%] max-w-[1100px]">
-                    <thead className="sticky top-0">
+            <div className="overflow-y-auto overflow-x-hidden mb-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex">
+                <table className=" w-full">
+                    <thead className="sticky top-0 h-10">
                         <tr className="bg-[#125C38] text-white text-center">
                             <td>Amount</td>
                             <td>Category</td>

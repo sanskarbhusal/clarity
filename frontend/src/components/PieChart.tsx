@@ -93,7 +93,7 @@ export default function PieChart() {
     if (categories.length != 0 && netExpenses.length != 0) {
 
         return (
-            <div className=" sm:w-96 self-center flex justify-center">
+            <div className="sm:w-96 flex justify-center">
                 <Pie data={data} options={{
                     plugins: {
                         title: {
