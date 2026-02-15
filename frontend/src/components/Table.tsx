@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { useNavigate, useSearchParams } from "react-router"
 import { TableDataSyncContext } from "../Context"
 import { format } from "date-fns"
 import config from "../config/config"
@@ -20,9 +21,14 @@ const EditButton = () => {
 
 export default function Table() {
 
+    // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    // context hooks
     const needSync = useContext(TableDataSyncContext)
+    // routing hook
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
 
@@ -33,7 +39,14 @@ export default function Table() {
         (async () => {
 
             try {
-                const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}`);
+                let category = searchParams.get("category")
+
+                if (!category) {
+                    category = ""
+                }
+
+                const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}&category=${category}`);
+
                 if (!response.ok) {
                     throw new Error("Something went wrong");
                 }
@@ -84,7 +97,36 @@ export default function Table() {
                     <thead className="sticky top-0 h-10">
                         <tr className="bg-[#125C38] text-white font-bold text-md sm:text-lg text-center">
                             <td>Amount</td>
-                            <td>Category</td>
+                            <td>Category
+                                <select className="rounded-2xl ml-2 w-fit h-7 text-black text-sm font-normal p-1 bg-gray-100 "
+                                    onChange={e => {
+                                        navigate(`/?category=${e.target.value}`)
+                                    }}
+                                >
+                                    <option></option>
+                                    <option value="food">
+                                        food
+                                    </option>
+                                    <option value="clothing">
+                                        clothing
+                                    </option>
+                                    <option value="rent">
+                                        rent
+                                    </option>
+                                    <option value="entertainment">
+                                        entertainment
+                                    </option>
+                                    <option value="investment">
+                                        investment
+                                    </option>
+                                    <option value="transportation">
+                                        transportation
+                                    </option>
+                                    <option value="borrowed">
+                                        borrowed
+                                    </option>
+                                </select>
+                            </td>
                             <td>Type</td>
                             <td>Description</td>
                             <td>Date</td>
