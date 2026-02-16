@@ -17,7 +17,7 @@ export default function Table() {
     const [searchParams] = useSearchParams()
 
     // context hook
-    const { syncTrigger } = useContext(DataSyncContext)
+    const { syncTrigger, setSyncTrigger } = useContext(DataSyncContext)
     const loggedInUser = useContext(AuthContext)
 
     useEffect(() => {
@@ -79,7 +79,6 @@ export default function Table() {
         })
 
         return (
-
             <div className="overflow-auto mb-5 mt-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex shadow-lg shadow-gray-500 border-[1px] border-[#125C38] border-solid">
                 <table className="w-full">
                     <thead className="sticky top-0 h-10">
@@ -89,6 +88,7 @@ export default function Table() {
                                 <select className="rounded-2xl ml-2 w-fit h-7 text-black text-sm font-normal p-1 bg-gray-100 "
                                     onChange={e => {
                                         navigate(`/?category=${e.target.value}`)
+                                        setSyncTrigger((prev: boolean) => !prev)
                                     }}
                                 >
                                     <option></option>
