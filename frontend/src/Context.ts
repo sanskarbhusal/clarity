@@ -1,18 +1,19 @@
 import { createContext } from "react"
 
-type DataSyncContext = {
-    needSync: boolean
+type DataSyncContextType = {
+    syncTrigger: boolean,
+    setSyncTrigger: (param: any) => void
 }
 
 type HomePageBlurContextType = (bool: boolean) => void
 
-
-const PieChartDataSyncContext = createContext<DataSyncContext>({ needSync: false })
-const TableDataSyncContext = createContext<DataSyncContext>({ needSync: false })
-const HomePageBlurContext = createContext<HomePageBlurContextType>({} as HomePageBlurContextType)
+const DataSyncContext = createContext<DataSyncContextType>({
+    syncTrigger: false,
+    setSyncTrigger: () => { }
+})
+const HomePageBlurContext = createContext<HomePageBlurContextType>(() => { })
 
 export {
-    PieChartDataSyncContext,
-    TableDataSyncContext,
+    DataSyncContext,
     HomePageBlurContext
 } 

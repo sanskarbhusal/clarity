@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { DataSyncContext } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync }: any) {
+async function handleClick({ amount, t_type, category, t_description, closeModal, setSyncTrigger }: any) {
 
     const email = localStorage.getItem("loggedInUser")
 
@@ -24,7 +25,7 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
             throw new Error(result.message)
         }
 
-        triggerDataSync()
+        setSyncTrigger((prev: boolean) => !prev)
         closeModal()
 
     } catch (error) {
@@ -34,12 +35,15 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
 
 }
 
-export default function AddTransaction({ closeModal, triggerDataSync }: any) {
+export default function AddTransaction({ closeModal }: any) {
 
+    // state hooks
     const [amount, setAmount] = useState("")
     const [t_type, setType] = useState("")
     const [category, setCategory] = useState("")
     const [t_description, setDescription] = useState("")
+    //context hooks
+    const { setSyncTrigger } = useContext(DataSyncContext)
 
     return (
         <form className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
@@ -117,7 +121,7 @@ export default function AddTransaction({ closeModal, triggerDataSync }: any) {
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={async (e) => {
                     e.preventDefault()
-                    await handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync })
+                    await handleClick({ amount, t_type, category, t_description, closeModal, setSyncTrigger })
                 }}>
                 Add
             </button>

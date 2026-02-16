@@ -6,7 +6,7 @@ import EditTransactionModal from "./EditTransactionModal"
 export default function EditButton({ correspondingData }: any) {
 
     // state hooks
-    const [data, setData] = useState(correspondingData)
+    const [data] = useState(correspondingData)
     const [showEditTransactionModal, setShowEditTransactionModal] = useState(false)
     // context hook
     const applyBlur = useContext(HomePageBlurContext)
@@ -16,8 +16,7 @@ export default function EditButton({ correspondingData }: any) {
             onClick={() => {
                 setShowEditTransactionModal(true)
                 applyBlur(true)
-            }}
-        >
+            }}>
 
             {
                 showEditTransactionModal

@@ -1,19 +1,16 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useEffect, useState, useContext } from "react"
-import { PieChartDataSyncContext } from "../Context";
+import { useEffect, useState } from "react"
 import config from "../config/config";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
-
 
 export default function PieChart() {
 
     const [netExpenses, setNetExpenses] = useState([])
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
-    const needSync = useContext(PieChartDataSyncContext)
 
     // Data
     const data = {
@@ -80,7 +77,7 @@ export default function PieChart() {
 
         })()
 
-    }, [needSync]);
+    }, []);
 
     if (loading) {
         return (

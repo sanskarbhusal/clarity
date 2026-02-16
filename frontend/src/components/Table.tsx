@@ -1,28 +1,24 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate, useSearchParams } from "react-router"
-import { TableDataSyncContext } from "../Context"
+import { DataSyncContext } from "../Context"
 import EditButton from "./EditButton"
 import { format } from "date-fns"
 import config from "../config/config"
 import "../styles/table.css"
 
 
-type TableProps = {
-    applyBlur: (bool: boolean) => void
-}
-
-export default function Table({ applyBlur }: TableProps) {
+export default function Table() {
 
     // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
 
-    // context hooks
-    const needSync = useContext(TableDataSyncContext)
-
     // routing hook
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
+
+    // context hook
+    const { syncTrigger } = useContext(DataSyncContext)
 
     useEffect(() => {
 
@@ -57,7 +53,7 @@ export default function Table({ applyBlur }: TableProps) {
 
         })();
 
-    }, [needSync])
+    }, [syncTrigger])
 
     if (loading) {
         return (
@@ -86,7 +82,8 @@ export default function Table({ applyBlur }: TableProps) {
         })
 
         return (
-            <div className="overflow-auto mb-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex shadow-lg shadow-gray-500 border-[1px] border-[#125C38] border-solid">
+
+            <div className="overflow-auto mb-5 mt-5 w-full sm:w-[90%] sm:max-w-[1100px] justify-center flex shadow-lg shadow-gray-500 border-[1px] border-[#125C38] border-solid">
                 <table className="w-full">
                     <thead className="sticky top-0 h-10">
                         <tr className="bg-[#125C38] text-white font-bold text-md sm:text-lg text-center">

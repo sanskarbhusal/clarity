@@ -1,11 +1,9 @@
 import { useState, useContext } from "react"
-import { HomePageBlurContext } from "../Context"
+// import {  } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ id, amount, t_type, category, t_description, closeModal, triggerDataSync }: any) {
-
+async function handleClick({ id, amount, t_type, category, t_description, closeModal, setTableNeedSync, setPieChartNeedSync }: any) {
     try {
-
         // edit transaction data
         const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/edit`, {
             method: "POST",
@@ -23,26 +21,24 @@ async function handleClick({ id, amount, t_type, category, t_description, closeM
             throw new Error(result.message)
         }
 
-        triggerDataSync()
+        setTableNeedSync(true)
+        setPieChartNeedSync(true)
         closeModal()
 
     } catch (error) {
         const err = error as Error
         console.log(err.message)
     }
-
 }
 
 export default function EditTransactionModal({ closeModal, data }: any) {
-
     // state hooks
-    const [id, setId] = useState(data.id)
+    const [id] = useState(data.id)
     const [amount, setAmount] = useState(data.amount)
     const [t_type, setType] = useState(data.t_type)
     const [category, setCategory] = useState(data.category)
     const [t_description, setDescription] = useState(data.t_description)
     // context hook
-    const applyBlur = useContext(HomePageBlurContext)
 
     return (
         <div className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
@@ -119,7 +115,7 @@ export default function EditTransactionModal({ closeModal, data }: any) {
             </div>
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={async () => {
-                    await handleClick({ id, amount, t_type, category, t_description })
+                    await handleClick({ id, amount, t_type, category, t_description, closeModal })
                 }}>
                 Save
             </button>
