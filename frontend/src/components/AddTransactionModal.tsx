@@ -45,7 +45,7 @@ export default function AddTransaction({ closeModal, triggerDataSync }: any) {
         <form className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
             <div className="flex justify-between">
                 <h2 className="text-2xl font-bold mb-3 text-[#125C38]">
-                    Transaction Details
+                    Add Transaction
                 </h2>
                 <button onClick={closeModal} className="font-black font-mono text-2xl relative bottom-2">X</button>
             </div>

@@ -1,31 +1,25 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import { TableDataSyncContext } from "../Context"
+import EditButton from "./EditButton"
 import { format } from "date-fns"
 import config from "../config/config"
 import "../styles/table.css"
 
 
-const EditButton = () => {
-
-    return (
-        <div className="group mx-1 py-2 px-[0.4rem] rounded-full inline"> <svg
-            className="stroke-gray-400 w-5 group-hover:stroke-black inline transition-all duration-75"
-            viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-            <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z" />
-        </svg>
-        </div>
-    )
-
+type TableProps = {
+    applyBlur: (bool: boolean) => void
 }
 
-export default function Table() {
+export default function Table({ applyBlur }: TableProps) {
 
     // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+
     // context hooks
     const needSync = useContext(TableDataSyncContext)
+
     // routing hook
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
@@ -85,7 +79,7 @@ export default function Table() {
                     <td>{item.t_type}</td>
                     <td>{item.t_description}</td>
                     <td >{format(item.t_date, "MMM d, yyyy")}
-                        <EditButton />
+                        <EditButton correspondingData={item} />
                     </td>
                 </tr>
             )

@@ -1,19 +1,18 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { HomePageBlurContext } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync }: any) {
-
-    const email = localStorage.getItem("loggedInUser")
+async function handleClick({ id, amount, t_type, category, t_description, closeModal, triggerDataSync }: any) {
 
     try {
 
-        // insert transaction data
-        const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/add`, {
+        // edit transaction data
+        const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/edit`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, amount, t_type, category, t_description, t_date: new Date() })
+            body: JSON.stringify({ id, amount, t_type, category, t_description, t_date: new Date() })
         })
 
         // parse response json payload into object
@@ -34,20 +33,24 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
 
 }
 
-export default function EditTransactionModal({ closeModal, triggerDataSync }: any) {
+export default function EditTransactionModal({ closeModal, data }: any) {
 
-    const [amount, setAmount] = useState("")
-    const [t_type, setType] = useState("")
-    const [category, setCategory] = useState("")
-    const [t_description, setDescription] = useState("")
+    // state hooks
+    const [id, setId] = useState(data.id)
+    const [amount, setAmount] = useState(data.amount)
+    const [t_type, setType] = useState(data.t_type)
+    const [category, setCategory] = useState(data.category)
+    const [t_description, setDescription] = useState(data.t_description)
+    // context hook
+    const applyBlur = useContext(HomePageBlurContext)
 
     return (
-        <form className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
+        <div className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
             <div className="flex justify-between">
                 <h2 className="text-2xl font-bold mb-3 text-[#125C38]">
-                    Transaction Details
+                    Edit Transaction
                 </h2>
-                <button onClick={closeModal} className="font-black font-mono text-2xl relative bottom-2">X</button>
+                <button className="font-black font-mono text-2xl relative bottom-2" onClick={(e) => { e.stopPropagation(); closeModal() }}>X</button>
             </div>
             <div className="flex justify-between gap-[3.15rem] text-md mb-1">
                 <label className="self-center">Amount</label>
@@ -115,12 +118,11 @@ export default function EditTransactionModal({ closeModal, triggerDataSync }: an
                 />
             </div>
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
-                onClick={async (e) => {
-                    e.preventDefault()
-                    await handleClick({ amount, t_type, category, t_description, closeModal, triggerDataSync })
+                onClick={async () => {
+                    await handleClick({ id, amount, t_type, category, t_description })
                 }}>
-                Add
+                Save
             </button>
-        </form >
+        </div>
     )
 }
