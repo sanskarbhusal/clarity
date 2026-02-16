@@ -1,11 +1,8 @@
 import { useState, useContext } from "react"
-import { DataSyncContext } from "../Context"
+import { DataSyncContext, AuthContext } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ amount, t_type, category, t_description, closeModal, setSyncTrigger }: any) {
-
-    const email = localStorage.getItem("loggedInUser")
-
+async function handleClick({ loggedInUser, amount, t_type, category, t_description, closeModal, setSyncTrigger }: any) {
     try {
 
         // insert transaction data
@@ -14,7 +11,7 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, amount, t_type, category, t_description, t_date: new Date() })
+            body: JSON.stringify({ email: loggedInUser, amount, t_type, category, t_description, t_date: new Date() })
         })
 
         // parse response json payload into object
@@ -25,25 +22,27 @@ async function handleClick({ amount, t_type, category, t_description, closeModal
             throw new Error(result.message)
         }
 
+        // flip the previous state to trigger re-render
         setSyncTrigger((prev: boolean) => !prev)
+
         closeModal()
 
     } catch (error) {
         const err = error as Error
         console.log(err.message)
     }
-
 }
 
 export default function AddTransaction({ closeModal }: any) {
-
     // state hooks
     const [amount, setAmount] = useState("")
     const [t_type, setType] = useState("")
     const [category, setCategory] = useState("")
     const [t_description, setDescription] = useState("")
+
     //context hooks
     const { setSyncTrigger } = useContext(DataSyncContext)
+    const loggedInUser = useContext(AuthContext)
 
     return (
         <form className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
@@ -121,7 +120,7 @@ export default function AddTransaction({ closeModal }: any) {
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={async (e) => {
                     e.preventDefault()
-                    await handleClick({ amount, t_type, category, t_description, closeModal, setSyncTrigger })
+                    await handleClick({ loggedInUser, amount, t_type, category, t_description, closeModal, setSyncTrigger })
                 }}>
                 Add
             </button>

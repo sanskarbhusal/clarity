@@ -11,6 +11,7 @@ export default function EditButton({ correspondingData }: any) {
     // context hook
     const applyBlur = useContext(HomePageBlurContext)
 
+    console.log(data)
     return (
         <div className="group mx-1 py-2 px-[0.4rem] rounded-full inline"
             onClick={() => {

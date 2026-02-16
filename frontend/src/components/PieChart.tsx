@@ -1,16 +1,21 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { AuthContext, DataSyncContext } from "../Context";
 import config from "../config/config";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export default function PieChart() {
-
+    // state hooks
     const [netExpenses, setNetExpenses] = useState([])
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
+
+    // context hook
+    const { syncTrigger } = useContext(DataSyncContext)
+    const loggedInUser = useContext(AuthContext)
 
     // Data
     const data = {
@@ -42,13 +47,8 @@ export default function PieChart() {
 
 
     useEffect(() => {
-
-        const loggedInUser = localStorage.getItem("loggedInUser");
-
         (async () => {
-
             const encodedEmail = encodeURIComponent(loggedInUser as string)
-
             try {
                 // Read transactin overview
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/getOverview/${encodedEmail}`);
@@ -77,7 +77,7 @@ export default function PieChart() {
 
         })()
 
-    }, []);
+    }, [syncTrigger, loggedInUser]);
 
     if (loading) {
         return (

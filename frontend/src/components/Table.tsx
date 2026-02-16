@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate, useSearchParams } from "react-router"
-import { DataSyncContext } from "../Context"
+import { DataSyncContext, AuthContext } from "../Context"
 import EditButton from "./EditButton"
 import { format } from "date-fns"
 import config from "../config/config"
@@ -8,7 +8,6 @@ import "../styles/table.css"
 
 
 export default function Table() {
-
     // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -19,15 +18,13 @@ export default function Table() {
 
     // context hook
     const { syncTrigger } = useContext(DataSyncContext)
+    const loggedInUser = useContext(AuthContext)
 
     useEffect(() => {
-
-        const loggedInUser = localStorage.getItem("loggedInUser")
         const encodedEmail = encodeURIComponent(loggedInUser as string);
 
         // Fetch data for tabular view
         (async () => {
-
             try {
                 let category = searchParams.get("category")
 
@@ -53,7 +50,7 @@ export default function Table() {
 
         })();
 
-    }, [syncTrigger])
+    }, [syncTrigger, loggedInUser])
 
     if (loading) {
         return (

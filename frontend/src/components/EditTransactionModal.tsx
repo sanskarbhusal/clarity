@@ -1,16 +1,16 @@
 import { useState, useContext } from "react"
-// import {  } from "../Context"
+import { DataSyncContext, AuthContext } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ id, amount, t_type, category, t_description, closeModal, setTableNeedSync, setPieChartNeedSync }: any) {
+async function handleClick({ id, email, amount, t_type, category, t_description, closeModal, setSyncTrigger }: any) {
     try {
         // edit transaction data
         const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/edit`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ id, amount, t_type, category, t_description, t_date: new Date() })
+            body: JSON.stringify({ id, email, amount, t_type, category, t_description, t_date: new Date() })
         })
 
         // parse response json payload into object
@@ -21,8 +21,9 @@ async function handleClick({ id, amount, t_type, category, t_description, closeM
             throw new Error(result.message)
         }
 
-        setTableNeedSync(true)
-        setPieChartNeedSync(true)
+        // flip the previous state to trigger re-render
+        setSyncTrigger((prev: boolean) => !prev)
+
         closeModal()
 
     } catch (error) {
@@ -38,7 +39,10 @@ export default function EditTransactionModal({ closeModal, data }: any) {
     const [t_type, setType] = useState(data.t_type)
     const [category, setCategory] = useState(data.category)
     const [t_description, setDescription] = useState(data.t_description)
+
     // context hook
+    const { setSyncTrigger } = useContext(DataSyncContext)
+    const loggedInUser = useContext(AuthContext)
 
     return (
         <div className="fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl w-80 sm:w-96 h-fit flex flex-col gap-3 p-4 pl-6 pr-6 bg-[#E3F8ED] text-lg font-semibold border-[1px] border-solid border-green-300">
@@ -115,7 +119,8 @@ export default function EditTransactionModal({ closeModal, data }: any) {
             </div>
             <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                 onClick={async () => {
-                    await handleClick({ id, amount, t_type, category, t_description, closeModal })
+                    const email = loggedInUser
+                    await handleClick({ id, email, amount, t_type, category, t_description, closeModal, setSyncTrigger })
                 }}>
                 Save
             </button>
