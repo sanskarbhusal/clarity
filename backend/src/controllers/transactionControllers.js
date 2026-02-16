@@ -35,9 +35,10 @@ async function editTransaction(req, res) {
 
         if (result.rowCount == 0) {
             res.status(404).json({ message: `Record with id:${id} not found` })
-        } else {
-            res.status(200).send()
+            return
         }
+        res.status(200).json({ message: "success" })
+
     } catch (err) {
         console.log(err.message)
         res.status(500).send()
