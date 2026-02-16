@@ -25,17 +25,16 @@ async function getList(req, res) {
 
 
 async function editTransaction(req, res) {
-    const { amount, t_type, category, t_description, t_date, id } = req.body
+    const { amount, t_type, category, t_description, t_date, id, email } = req.body
     let sql, values, result
 
     try {
-        sql = "UPDATE transactions SET amount = $1, t_type = $2, category = $3, t_description = $4, t_date = $5 WHERE id = $6;"
-        values = [amount, t_type, category, t_description, t_date, id]
+        sql = "UPDATE transactions SET amount = $1, t_type = $2, category = $3, t_description = $4, t_date = $5, email = $6 WHERE id = $7;"
+        values = [amount, t_type, category, t_description, t_date, email, id]
         result = await pool.query(sql, values)
 
         if (result.rowCount == 0) {
-            res.status(404).json({ message: `Record with id:${body.id} not found` })
-
+            res.status(404).json({ message: `Record with id:${id} not found` })
         } else {
             res.status(200).send()
         }
