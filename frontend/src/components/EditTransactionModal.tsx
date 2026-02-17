@@ -13,12 +13,9 @@ async function handleClick({ id, email, amount, t_type, category, t_description,
             body: JSON.stringify({ id, email, amount, t_type, category, t_description, t_date: new Date() })
         })
 
-        // parse response json payload into object
-        const result = await response.json()
-
         // Error on request fail
         if (!response.ok) {
-            throw new Error(result.message)
+            throw new Error("Something went wrong")
         }
 
         // flip the previous state to trigger re-render
@@ -42,7 +39,7 @@ export default function EditTransactionModal({ closeModal, data }: any) {
 
     // context hook
     const { setSyncTrigger } = useContext(DataSyncContext)
-    const loggedInUser = useContext(AuthContext)
+    const { loggedInUser } = useContext(AuthContext)
 
     return (
         <div onClick={(e) => e.stopPropagation()}>
