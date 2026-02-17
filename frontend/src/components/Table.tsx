@@ -11,7 +11,6 @@ export default function Table() {
     // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [filterCategory, setFilterCategory] = useState("")
 
     // routing hook
     const navigate = useNavigate()
@@ -29,10 +28,9 @@ export default function Table() {
             if (!loggedInUser) return
 
             const category = searchParams.get("category") || ""
-            setFilterCategory(category)
 
             try {
-                const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}&category=${filterCategory}`);
+                const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}&category=${category}`);
 
                 if (!response.ok) {
                     throw new Error("Something went wrong");
@@ -77,19 +75,19 @@ export default function Table() {
         })
 
         return (
-            <div className="overflow-x-auto overflow-y-auto mb-5 mt-5 w-full sm:w-[90%] sm:max-w-[1100px]  shadow-lg shadow-gray-500 border-[1px] border-[#125C38] border-solid">
+            <div className="overflow-x-auto overflow-y-auto mb-5 mt-5 w-full sm:w-[90%] sm:max-w-[1100px] shadow-none sm:shadow-lg sm:shadow-gray-500 border-[1px] border-[#125C38] border-solid">
                 <table className="w-full">
                     <thead className="sticky top-0 h-10">
                         <tr className="bg-[#125C38] text-white font-bold text-md sm:text-lg text-center">
                             <td className="">Amount</td>
-                            <td>Category
-                                <select className="rounded-md ml-2 mb-2 w-fit h-7 text-black text-sm font-normal p-1 bg-gray-100 "
+                            <td className="w-56">Category
+                                <select className="rounded-md ml-2 mb-1.5 sm:mb-0 h-7 text-black text-sm font-normal bg-gray-100 "
                                     onChange={e => {
                                         e.preventDefault()
                                         navigate(`/?category=${e.target.value}`)
                                     }}
                                 >
-                                    <option>{filterCategory}</option>
+                                    <option>{searchParams.get("category")}</option>
                                     <option value="food">
                                         Food
                                     </option>
