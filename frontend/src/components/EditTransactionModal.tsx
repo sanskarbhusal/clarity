@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import { DataSyncContext, AuthContext } from "../Context"
 import config from "../config/config"
 
-async function handleClick({ id, email, amount, t_type, category, t_description, closeModal, setSyncTrigger }: any) {
+async function handleClick({ email, data, closeModal, setSyncTrigger }: any) {
     try {
         // edit transaction data
         const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/edit`, {
@@ -10,7 +10,7 @@ async function handleClick({ id, email, amount, t_type, category, t_description,
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ id, email, amount, t_type, category, t_description, t_date: new Date() })
+            body: JSON.stringify({ email, ...data, t_date: new Date() })
         })
 
         // Error on request fail
@@ -29,13 +29,9 @@ async function handleClick({ id, email, amount, t_type, category, t_description,
     }
 }
 
-export default function EditTransactionModal({ closeModal, data }: any) {
+export default function EditTransactionModal({ closeModal, rowData }: any) {
     // state hooks
-    const [id] = useState(data.id)
-    const [amount, setAmount] = useState(data.amount)
-    const [t_type, setType] = useState(data.t_type)
-    const [category, setCategory] = useState(data.category)
-    const [t_description, setDescription] = useState(data.t_description)
+    const [data, setData] = useState(rowData)
 
     // context hook
     const { setSyncTrigger } = useContext(DataSyncContext)
@@ -55,16 +51,16 @@ export default function EditTransactionModal({ closeModal, data }: any) {
                     <input
                         className="rounded-2xl w-1/2 h-9 text-black text-sm font-normal p-1 "
                         type="number"
-                        value={amount}
-                        onChange={e => setAmount(e.target.value)}
+                        value={data.amount}
+                        onChange={e => setData((prev: any) => ({ ...prev, amount: e.target.value }))}
                     />
                 </div>
 
                 <div className="flex justify-between gap-[3.15rem] text-md mb-1">
                     <label className="self-center">Type</label>
                     <select className="rounded-2xl w-1/2 h-9 text-black text-sm font-normal p-1 bg-white "
-                        value={t_type}
-                        onChange={e => setType(e.target.value)}
+                        value={data.t_type}
+                        onChange={e => setData((prev: any) => ({ ...prev, t_type: e.target.value }))}
                     >
                         <option></option>
                         <option value="expense">
@@ -79,8 +75,8 @@ export default function EditTransactionModal({ closeModal, data }: any) {
                 <div className="flex justify-between gap-[3.15rem] text-md mb-1">
                     <label className="self-center">Category</label>
                     <select className="rounded-2xl w-1/2 h-9 text-black text-sm font-normal p-1 bg-white "
-                        value={category}
-                        onChange={e => setCategory(e.target.value)}
+                        value={data.category}
+                        onChange={e => setData((prev: any) => ({ ...prev, category: e.target.value }))}
                     >
                         <option></option>
                         <option value="food">
@@ -111,14 +107,14 @@ export default function EditTransactionModal({ closeModal, data }: any) {
                         className="rounded-2xl w-full max-h-48 text-black text-sm font-normal p-3"
                         placeholder="Description"
                         rows={10}
-                        value={t_description}
-                        onChange={e => setDescription(e.target.value)}
+                        value={data.t_description}
+                        onChange={e => setData((prev: any) => ({ ...prev, t_description: e.target.value }))}
                     />
                 </div>
                 <button className="bg-[#125C38] w-20 rounded-lg p-1 text-white self-center mt-4 active:scale-95"
                     onClick={async () => {
                         const email = loggedInUser
-                        await handleClick({ id, email, amount, t_type, category, t_description, closeModal, setSyncTrigger })
+                        await handleClick({ email, data, closeModal, setSyncTrigger })
                     }}>
                     Save
                 </button>

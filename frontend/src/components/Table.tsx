@@ -40,7 +40,6 @@ export default function Table() {
                 const result = await response.json();
                 setData(result)
                 setLoading(false)
-                console.log(data)
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
@@ -58,10 +57,11 @@ export default function Table() {
     }
 
     if (data.length > 0) {
-
         let count = data.length
+
         const html = data.map((item: any) => {
             count--
+            const rowData = { ...item }
             return (
                 <tr key={item.id} style={{ backgroundColor: count % 2 == 0 ? "white" : "#E3F8ED" }} >
                     <td>Rs {item.amount}</td>
@@ -69,7 +69,7 @@ export default function Table() {
                     <td>{item.t_type}</td>
                     <td>{item.t_description}</td>
                     <td >{format(item.t_date, "MMM d, yyyy")}
-                        <EditButton correspondingData={item} />
+                        <EditButton rowData={rowData} />
                     </td>
                 </tr>
             )

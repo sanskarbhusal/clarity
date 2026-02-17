@@ -3,11 +3,10 @@ import { HomePageBlurContext } from "../Context"
 import { createPortal } from "react-dom"
 import EditTransactionModal from "./EditTransactionModal"
 
-export default function EditButton({ correspondingData }: any) {
-
-    // state hooks
-    const [data] = useState(correspondingData)
+export default function EditButton({ rowData }: any) {
+    // state hook
     const [showEditTransactionModal, setShowEditTransactionModal] = useState(false)
+
     // context hook
     const applyBlur = useContext(HomePageBlurContext)
 
@@ -17,7 +16,6 @@ export default function EditButton({ correspondingData }: any) {
                 setShowEditTransactionModal(true)
                 applyBlur(true)
             }}>
-
             {
                 showEditTransactionModal
                 && createPortal(
@@ -26,10 +24,9 @@ export default function EditButton({ correspondingData }: any) {
                             setShowEditTransactionModal(false)
                             applyBlur(false)
                         }}
-                        data={data} />,
+                        rowData={rowData} />,
                     document.body)
             }
-
             <svg
                 className="stroke-gray-400 w-5 group-hover:stroke-black inline transition-all duration-75"
                 viewBox="0 0 32 32" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
