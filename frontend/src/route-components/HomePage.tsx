@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { useNavigate } from "react-router"
 import PieChart from '../components/PieChart'
 import Table from "../components/Table"
+import AIContent from "../components/AIContent"
 import { HomePageBlurContext, DataSyncContext, AuthContext } from "../Context"
 import AddTransactionModal from "../components/AddTransactionModal"
 
@@ -47,13 +48,14 @@ function App() {
                                             setShowAddTransactionModal(false)
                                             setApplyBlur(false)
                                         }}
-                                    // sync={() => setSyncTrigger(prev => !prev)}
                                     />, document.body)
                             }
 
                         </div>
                         <PieChart />
                         <Table />
+                        <AIContent />
+
                     </div>
                 </DataSyncContext>
             </AuthContext>
