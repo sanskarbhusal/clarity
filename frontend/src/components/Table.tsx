@@ -15,6 +15,7 @@ export default function Table() {
     // routing hook
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
+    const [filterCategory, setFilterCategory] = useState("")
 
     // context hook
     const { syncTrigger } = useContext(DataSyncContext)
@@ -26,8 +27,8 @@ export default function Table() {
         // Fetch data for tabular view
         (async () => {
             if (!loggedInUser) return
-
             const category = searchParams.get("category") || ""
+            setFilterCategory(category)
 
             try {
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}&category=${category}`);
@@ -82,12 +83,12 @@ export default function Table() {
                             <td className="">Amount</td>
                             <td className="w-56">Category
                                 <select className="rounded-md ml-2 mb-1.5 sm:mb-0 h-7 text-black text-sm font-normal bg-gray-100 "
+                                    value={filterCategory}
                                     onChange={e => {
-                                        e.preventDefault()
                                         navigate(`/?category=${e.target.value}`)
                                     }}
                                 >
-                                    <option>{searchParams.get("category")}</option>
+                                    <option value=""></option>
                                     <option value="food">
                                         Food
                                     </option>

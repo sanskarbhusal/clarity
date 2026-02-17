@@ -30,7 +30,7 @@ function App() {
                 <DataSyncContext value={{ syncTrigger, setSyncTrigger }}>
                     <div className={`h-[100dvh] flex flex-col items-center transition-all px-2.5 ${applyBlur ? "blur-3xl" : ""}`}>
                         <div className="w-full flex justify-between mt-2 text-2xl sm:text-3xl font-extrabold font-mono text-[#125C38] cursor-default"
-                            onClick={() => { navigate("/") }}
+                            onClick={() => { navigate("/?category=") }}
                         >
                             Clarity
                             <button className="font-black text-4xl w-[2.95rem] text-[#125C38] bg-gray-100 border-[1px] border-solid border-gray-200 hover:bg-gray-200 active:scale-90 transition-all rounded-full pt-1 "
