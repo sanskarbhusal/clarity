@@ -1,6 +1,11 @@
 # Clarity: Expense Tracker
 **Author**: `Sanskar Bhusal` <br>
 **Project**: Clarity
+**URL**: https://clarity.sanskarbhusal.com.np
+
+**Pre-seeded Credentials for quick test**:<br>
+Email: `test@gmail.com` <br>
+Password: `password` <br>
 
 ## Installation Instruction
 1. clone the repository
@@ -42,16 +47,18 @@ npm run dev
 ![](images/add-transaction.png)
 
 # Info
-### Frontend Approach
-1. Single Page application
-2. React + Tyscript
-3. Project structure scafolded from Vite's react-ts template
-4. deployed on Github pages (Yes we can do It for react SPA)
+### Frontend Technologies
+1. `react` + `typescript`.
+2. `Vite` for compiling(ts to js) and bundling. Folder structure scafolded from Vite's `react-ts` template
+4. `Tailwind` for CSS.
+5. `react-router` for client side routing and page naviagation.
+6. `gh-pages` CLI tool to auto-configure CI/CD in github actions.
 
-### Backend Approach
-1. Code in Node.js and Express.js for API
-2. Postgress db server for SQL.
-3. My own kaam chalaau authentication logic (not good though).
-4. Deployed on a cheap 1 GB dual core Azure VM.
+### Backend Technologies
+1. `Node.js` and `Express.js` for API
+2. `Postgresql` for SQL for db.
+3. Azure VM to host `node` http server and `postgresql` database server.
+4. `nginx` web server configuring ssl endpoint (reverse proxy setup) with certificates managed with `certbot`.
+5. Deployment environment (Ubuntu 24.04)
 
 
