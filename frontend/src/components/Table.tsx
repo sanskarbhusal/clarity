@@ -11,27 +11,26 @@ export default function Table() {
     // state hooks
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    // const [filterCategory, setFilterCategory] = useState("")
 
     // routing hook
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
 
     // context hook
-    const { syncTrigger, setSyncTrigger } = useContext(DataSyncContext)
-    const loggedInUser = useContext(AuthContext)
+    const { syncTrigger } = useContext(DataSyncContext)
+    const { loggedInUser } = useContext(AuthContext)
 
     useEffect(() => {
         const encodedEmail = encodeURIComponent(loggedInUser as string);
 
         // Fetch data for tabular view
         (async () => {
+            if (!loggedInUser) return
+
+            const category = searchParams.get("category") || ""
+
             try {
-                let category = searchParams.get("category")
-
-                if (!category) {
-                    category = ""
-                }
-
                 const response = await fetch(`${config.API_BASE_URL}/api/v1/transaction/list?email=${encodedEmail}&category=${category}`);
 
                 if (!response.ok) {
@@ -39,18 +38,16 @@ export default function Table() {
                 }
 
                 const result = await response.json();
-
-                setLoading(false)
                 setData(result)
-
+                setLoading(false)
+                console.log(data)
             } catch (error) {
                 const err = error as Error
                 console.log(err.message);
             }
-
         })();
 
-    }, [syncTrigger, loggedInUser])
+    }, [syncTrigger, loggedInUser, searchParams])
 
     if (loading) {
         return (
@@ -87,8 +84,8 @@ export default function Table() {
                             <td>Category
                                 <select className="rounded-2xl ml-2 w-fit h-7 text-black text-sm font-normal p-1 bg-gray-100 "
                                     onChange={e => {
+                                        e.preventDefault()
                                         navigate(`/?category=${e.target.value}`)
-                                        setSyncTrigger((prev: boolean) => !prev)
                                     }}
                                 >
                                     <option></option>

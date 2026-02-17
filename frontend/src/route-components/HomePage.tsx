@@ -22,11 +22,11 @@ function App() {
             navigate("/login")
         }
         setLoggedInUser(loggedInUser as string)
-    })
+    }, [])
 
     return (
         <HomePageBlurContext value={(bool) => setApplyBlur(bool)} >
-            <AuthContext value={loggedInUser}>
+            <AuthContext value={{ loggedInUser }}>
                 <DataSyncContext value={{ syncTrigger, setSyncTrigger }}>
                     <div className={`h-[100dvh] flex flex-col items-center transition-all ${applyBlur ? "blur-3xl" : ""}`}>
                         <div className="w-full flex justify-between mt-2 px-2 text-3xl font-extrabold font-mono text-[#125C38]">

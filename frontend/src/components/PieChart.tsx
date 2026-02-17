@@ -15,7 +15,7 @@ export default function PieChart() {
 
     // context hook
     const { syncTrigger } = useContext(DataSyncContext)
-    const loggedInUser = useContext(AuthContext)
+    const { loggedInUser } = useContext(AuthContext)
 
     // Data
     const data = {
