@@ -27,3 +27,8 @@
  tbody>tr {
      height: 2.16rem;
  }
+
+ /* all table rows */
+ tr {
+     cursor: pointer;
+ }
